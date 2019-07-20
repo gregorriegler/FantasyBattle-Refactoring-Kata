@@ -16,13 +16,20 @@ public class SimpleEnemy extends Target {
     protected int getSoak(int totalDamage) {
         return Math.round(
             this.armor.getDamageSoak() *
-            (
-                ((float) buffs
-                    .stream()
-                    .mapToDouble(Buff::soakModifier)
-                    .sum()) +
-                1f
-            )
+                getSoakModifier()
         );
+    }
+
+    private float getSoakModifier() {
+        return soakModifier() +
+        1f;
+    }
+
+    private float soakModifier() {
+        // TODO make a first class collection and move this method there.
+        return (float) buffs
+            .stream()
+            .mapToDouble(Buff::soakModifier)
+            .sum();
     }
 }
