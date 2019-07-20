@@ -7,7 +7,12 @@ public class Inventory {
         this.equipment = equipment;
     }
 
-    Equipment getEquipment() {
-        return equipment;
+    int getBaseDamage() {
+        return equipment.getBaseDamage();
     }
+
+    float getDamageModifier() {
+        return equipment.getDamageModifier();
+    }
+
 }
