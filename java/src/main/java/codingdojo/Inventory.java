@@ -14,5 +14,4 @@ public class Inventory {
     float getDamageModifier() {
         return equipment.getDamageModifier();
     }
-
 }
