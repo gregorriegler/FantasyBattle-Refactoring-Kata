@@ -11,11 +11,16 @@ class Player extends Target {
     }
 
     Damage calculateDamage(Target other) {
-        int baseDamage = inventory.getBaseDamage();
-        float damageModifier = getDamageModifier();
-        int totalDamage = Math.round(baseDamage * damageModifier);
+        int totalDamage = getTotalDamage();
+
         int soak = getSoak(other, totalDamage);
         return new Damage(Math.max(0, totalDamage - soak));
+    }
+
+    private int getTotalDamage() {
+        int baseDamage = inventory.getBaseDamage();
+        float damageModifier = stats.getStrengthModifier() + inventory.getDamageModifier();
+        return Math.round(baseDamage * damageModifier);
     }
 
     private int getSoak(Target other, int totalDamage) {
@@ -38,12 +43,6 @@ class Player extends Target {
             );
         }
         return soak;
-    }
-
-    private float getDamageModifier() {
-        float damage = inventory.getDamageModifier();
-        float strengthModifier = stats.getStrength() * 0.1f;
-        return strengthModifier + damage;
     }
 
 }
