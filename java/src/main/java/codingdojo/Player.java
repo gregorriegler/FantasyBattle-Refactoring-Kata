@@ -24,25 +24,14 @@ class Player extends Target {
     }
 
     private int getSoak(Target other, int totalDamage) {
-        int soak = 0;
-        if (other instanceof Player) {
-            // TODO: Not implemented yet
-            //  Add friendly fire
-            soak = totalDamage;
-        } else if (other instanceof SimpleEnemy) {
-            SimpleEnemy simpleEnemy = (SimpleEnemy) other;
-            soak = Math.round(
-                simpleEnemy.getArmor().getDamageSoak() *
-                (
-                    ((float) simpleEnemy.getBuffs()
-                        .stream()
-                        .mapToDouble(Buff::soakModifier)
-                        .sum()) +
-                    1f
-                )
-            );
-        }
-        return soak;
+        return other.getSoak(totalDamage);
+    }
+
+    @Override
+    protected int getSoak(int totalDamage) {
+        // TODO: Not implemented yet
+        //  Add friendly fire
+        return totalDamage;
     }
 
 }
