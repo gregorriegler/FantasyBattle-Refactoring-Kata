@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
@@ -22,14 +23,22 @@ public class PlayerTest {
         assertEquals(10, damage.getAmount());
     }
 
-    // choose this one if you are not familiar with mocks
-    @Ignore("Test is not finished yet")
+    // Where	    What	                Base Damage	Damage Modifier
+    //right hand	flashy sword of danger	10	        1.0
     @Test
     public void damageCalculations() {
-        Inventory inventory = new Inventory(null);
+        Inventory inventory = new Inventory(createEquipment());
         Stats stats = new Stats(0);
-        SimpleEnemy target = new SimpleEnemy(null, null);
+        SimpleEnemy target = new SimpleEnemy(new SimpleArmor(0), Collections.emptyList());
         Damage damage = new Player(inventory, stats).calculateDamage(target);
         assertEquals(10, damage.getAmount());
+    }
+
+    private Equipment createEquipment() {
+        return new Equipment(emptyItem(), emptyItem(), emptyItem(), emptyItem(), emptyItem());
+    }
+
+    private BasicItem emptyItem() {
+        return new BasicItem(0, 0);
     }
 }
