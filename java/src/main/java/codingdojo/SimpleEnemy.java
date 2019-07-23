@@ -1,24 +1,23 @@
 package codingdojo;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SimpleEnemy extends Target {
 
     private Armor armor;
-    private List<Buff> buffs;
+    private BuffList buffs;
 
     public SimpleEnemy(Armor armor, List<Buff> buffs) {
         this.armor = armor;
-        this.buffs = buffs;
+        this.buffs = new BuffList(buffs);
     }
 
-    List<Buff> getBuffs() {
-        return buffs;
+    @Override
+    public int soak(int totalDamage) {
+        return Math.round(armor.getDamageSoak() * buffModifier());
     }
 
-    Armor getArmor() {
-        return this.armor;
+    private float buffModifier() {
+        return buffs.buffModifier();
     }
 }
