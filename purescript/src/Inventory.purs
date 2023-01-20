@@ -1,7 +1,16 @@
 module Inventory where
 
-import Equipment (Equipment)
-import Data.Newtype (class Newtype)
+import Prelude -- #
 
-newtype Inventory = Inventory { equipment :: Equipment }
+import Equipment (Equipment, getBaseDamage) as Equipment
+
+import Data.Newtype (class Newtype, unwrap)
+
+newtype Inventory = Inventory { equipment :: Equipment.Equipment }
 derive instance Newtype Inventory _
+
+getBaseDamage :: Inventory -> Int
+getBaseDamage _inventory = _inventory
+    # unwrap
+    # _.equipment
+    # Equipment.getBaseDamage
