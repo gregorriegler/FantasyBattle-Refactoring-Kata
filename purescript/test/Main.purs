@@ -16,7 +16,7 @@ import Inventory (Inventory(..))
 import Equipment (Equipment(..))
 import Armor (Armor(..))
 import Buff (Buff(..))
-
+import SimpleEnemy (SimpleEnemy)
 
 main :: Effect Unit
 main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
@@ -53,10 +53,13 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
         inventory = Inventory { equipment }
         stats = { strength: 1 }
         player = { inventory, stats }
-        armor = SimpleArmor { soak: 1 }
-        buffs = [ BasicBuff { soak: 0.5, damage:1.0 }, BasicBuff { soak: 0.5, damage:1.0 } ]
-        enemy = { armor: armor, buffs: buffs }
+        enemy = createEnemy
       player
         # calculateDamage (SimpleEnemyTarget enemy)
         # shouldEqual (Damage 9)
 
+createEnemy :: SimpleEnemy
+createEnemy = { armor: armor, buffs: buffs }
+  where
+  armor = SimpleArmor { soak: 1 }
+  buffs = [ BasicBuff { soak: 0.5, damage:1.0 }, BasicBuff { soak: 0.5, damage:1.0 } ]
