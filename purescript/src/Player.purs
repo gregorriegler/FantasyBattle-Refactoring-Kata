@@ -7,15 +7,14 @@ import Buff (soakModifier) as Buff
 import Damage (Damage(..))
 import Data.Array (foldr) as Array
 import Data.Int (round, toNumber)
-import Inventory (Inventory)
-import Equipment (getBaseDamage) as Equipment
+import Inventory (Inventory, getBaseDamage) as Inventory
 import Item (getBaseDamage, getDamageModifier) as Item
 import SimpleEnemy (SimpleEnemy)
 import Stats (Stats)
 import Data.Newtype (unwrap)
 
 type Player =
-  { inventory :: Inventory
+  { inventory :: Inventory.Inventory
   , stats :: Stats
   }
 
@@ -33,9 +32,7 @@ calculateDamage other player = Damage (max 0 (totalDamage - soak))
 
 getBaseDamage :: Player -> Int
 getBaseDamage player = player.inventory
-    # unwrap
-    # _.equipment
-    # Equipment.getBaseDamage
+    # Inventory.getBaseDamage
 
 getDamageModifier :: Player -> Number
 getDamageModifier player = strengthModifier
