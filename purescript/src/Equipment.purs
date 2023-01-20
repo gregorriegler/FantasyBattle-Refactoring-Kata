@@ -42,4 +42,15 @@ getDamageModifier _equipment = 0.0
   head = equipment.head
   feet = equipment.feet
   chest = equipment.chest
-  
+
+-- data Allowed = Int | Number
+
+-- eachItem Allowed :: (f :: Item -> a) -> Equipment -> a
+-- getDamageModifier _equipment = f leftHand + f rightHand + f head + f feet + f chest
+--   where
+--   equipment = unwrap _equipment
+--   leftHand = equipment.leftHand
+--   rightHand = equipment.rightHand
+--   head = equipment.head
+--   feet = equipment.feet
+--   chest = equipment.chest

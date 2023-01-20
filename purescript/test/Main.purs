@@ -18,6 +18,8 @@ import Armor (Armor(..))
 import Buff (Buff(..))
 import SimpleEnemy (SimpleEnemy)
 
+import Item (getStuff, getBaseDamage) as Item
+
 main :: Effect Unit
 main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
   describe "player" do
@@ -76,6 +78,13 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
       inventory
         # getBaseDamage
         # shouldEqual 10
+    it "can access via getStuff" do
+      let 
+        sword = BasicItem { name: "sword", baseDamage: 10, damageModifier: 1.0 }
+      sword 
+        # Item.getStuff Item.getBaseDamage
+        # shouldEqual 10
+      
 
 createEnemy :: Int -> SimpleEnemy
 createEnemy armorSoak = { armor: armor, buffs: buffs }

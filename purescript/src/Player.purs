@@ -8,7 +8,6 @@ import Damage (Damage(..))
 import Data.Array (foldr) as Array
 import Data.Int (round, toNumber)
 import Inventory (Inventory, getBaseDamage) as Inventory
-import Item (getDamageModifier) as Item -- Goal: get rid of "Item" in "Player"
 import SimpleEnemy (SimpleEnemy)
 import Stats (Stats)
 import Data.Newtype (unwrap)

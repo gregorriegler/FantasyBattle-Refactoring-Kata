@@ -15,3 +15,4 @@ getBaseDamage _inventory = _inventory
     # _.equipment
     # Equipment.getBaseDamage
 
+-- similar method for damageModifier
