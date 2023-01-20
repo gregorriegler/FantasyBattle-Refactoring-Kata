@@ -8,6 +8,7 @@ import Damage (Damage(..))
 import Data.Array (foldr) as Array
 import Data.Int (round, toNumber)
 import Inventory (Inventory)
+import Equipment (getBaseDamage) as Equipment
 import Item (getBaseDamage, getDamageModifier) as Item
 import SimpleEnemy (SimpleEnemy)
 import Stats (Stats)
@@ -31,21 +32,10 @@ calculateDamage other player = Damage (max 0 (totalDamage - soak))
   soak = player # getSoak other totalDamage
 
 getBaseDamage :: Player -> Int
-getBaseDamage player = Item.getBaseDamage leftHand
-  + Item.getBaseDamage rightHand
-  + Item.getBaseDamage head
-  + Item.getBaseDamage feet
-  + Item.getBaseDamage chest
-  where
-  equipment = player.inventory
+getBaseDamage player = player.inventory
     # unwrap
     # _.equipment
-    # unwrap
-  leftHand = equipment.leftHand
-  rightHand = equipment.rightHand
-  head = equipment.head
-  feet = equipment.feet
-  chest = equipment.chest
+    # Equipment.getBaseDamage
 
 getDamageModifier :: Player -> Number
 getDamageModifier player = strengthModifier
