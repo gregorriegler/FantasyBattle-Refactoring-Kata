@@ -39,11 +39,12 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
         # calculateDamage (PlayerTarget player)
         # shouldEqual noDamage
 
-    it "experiment with damage modifier" do
+    it "damages an enemy" do
       let
         noItem = BasicItem { name: "useless", baseDamage: 0, damageModifier: 0.0 }
+        damageOneItem = BasicItem { name: "useless", baseDamage: 10, damageModifier: 1.0 }
         equipment = Equipment
-          { leftHand: noItem
+          { leftHand: damageOneItem
           , rightHand: noItem
           , head: noItem
           , chest: noItem
@@ -55,8 +56,7 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
         armor = SimpleArmor { soak: 1 }
         buffs = [ BasicBuff { soak: 1.0, damage:1.0 } ]
         enemy = { armor: armor, buffs: buffs }
-        noDamage = Damage 1
       player
         # calculateDamage (SimpleEnemyTarget enemy)
-        # shouldEqual noDamage
+        # shouldEqual (Damage 9)
 
