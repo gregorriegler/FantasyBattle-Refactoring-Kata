@@ -42,9 +42,9 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
     it "damages an enemy" do
       let
         noItem = BasicItem { name: "useless", baseDamage: 0, damageModifier: 0.0 }
-        damageOneItem = BasicItem { name: "useless", baseDamage: 10, damageModifier: 1.0 }
+        sword = BasicItem { name: "sword", baseDamage: 10, damageModifier: 1.0 }
         equipment = Equipment
-          { leftHand: damageOneItem
+          { leftHand: sword
           , rightHand: noItem
           , head: noItem
           , chest: noItem
@@ -54,7 +54,7 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
         stats = { strength: 1 }
         player = { inventory, stats }
         armor = SimpleArmor { soak: 1 }
-        buffs = [ BasicBuff { soak: 1.0, damage:1.0 } ]
+        buffs = [ BasicBuff { soak: 0.5, damage:1.0 }, BasicBuff { soak: 0.5, damage:1.0 } ]
         enemy = { armor: armor, buffs: buffs }
       player
         # calculateDamage (SimpleEnemyTarget enemy)
