@@ -14,3 +14,4 @@ getBaseDamage _inventory = _inventory
     # unwrap
     # _.equipment
     # Equipment.getBaseDamage
+

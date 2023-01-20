@@ -1,7 +1,7 @@
 module Equipment where
 
 import Prelude -- need this for the +
-import Item (Item, getBaseDamage) as Item
+import Item (Item, getBaseDamage, getDamageModifier) as Item
 import Data.Newtype (class Newtype, unwrap)
 
 newtype Equipment = Equipment
@@ -27,3 +27,19 @@ getBaseDamage _equipment = 0
   head = equipment.head
   feet = equipment.feet
   chest = equipment.chest
+
+getDamageModifier :: Equipment -> Number
+getDamageModifier _equipment = 0.0
+  + Item.getDamageModifier leftHand
+  + Item.getDamageModifier rightHand
+  + Item.getDamageModifier head
+  + Item.getDamageModifier feet
+  + Item.getDamageModifier chest
+  where
+  equipment = unwrap _equipment
+  leftHand = equipment.leftHand
+  rightHand = equipment.rightHand
+  head = equipment.head
+  feet = equipment.feet
+  chest = equipment.chest
+  
