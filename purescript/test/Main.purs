@@ -13,7 +13,7 @@ import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Reporter.TeamCity (teamcityReporter)
 import Test.Spec.Runner (runSpec)
 import Inventory (Inventory(..))
-import Equipment (Equipment(..))
+import Equipment (Equipment(..), getBaseDamage)
 import Armor (Armor(..))
 import Buff (Buff(..))
 import SimpleEnemy (SimpleEnemy)
@@ -60,6 +60,21 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
       player
         # calculateDamage (SimpleEnemyTarget enemy)
         # shouldEqual (Damage 7)
+
+    it "can calculate BaseDamage" do
+      let
+        noItem = BasicItem { name: "useless", baseDamage: 0, damageModifier: 0.0 }
+        sword = BasicItem { name: "sword", baseDamage: 10, damageModifier: 1.0 }
+        equipment = Equipment
+          { leftHand: sword
+          , rightHand: noItem
+          , head: noItem
+          , chest: noItem
+          , feet: noItem
+          }
+      equipment
+        # getBaseDamage
+        # shouldEqual 10
 
 createEnemy :: Int -> SimpleEnemy
 createEnemy armorSoak = { armor: armor, buffs: buffs }
