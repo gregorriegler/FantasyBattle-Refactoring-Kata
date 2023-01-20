@@ -12,8 +12,8 @@ import Test.Spec.Assertions (shouldEqual)
 import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Reporter.TeamCity (teamcityReporter)
 import Test.Spec.Runner (runSpec)
-import Inventory (Inventory(..))
-import Equipment (Equipment(..), getBaseDamage)
+import Inventory (Inventory(..), getBaseDamage)
+import Equipment (Equipment(..))
 import Armor (Armor(..))
 import Buff (Buff(..))
 import SimpleEnemy (SimpleEnemy)
@@ -72,7 +72,8 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
           , chest: noItem
           , feet: noItem
           }
-      equipment
+        inventory = Inventory { equipment }
+      inventory
         # getBaseDamage
         # shouldEqual 10
 
