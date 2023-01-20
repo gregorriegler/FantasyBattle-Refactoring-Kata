@@ -39,6 +39,9 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
         # calculateDamage (PlayerTarget player)
         # shouldEqual noDamage
 
+-- Is strength added to damage? Yes!
+-- Is armor soaking strength damage? We believe yes.
+-- Why was it 6
     it "damages an enemy" do
       let
         noItem = BasicItem { name: "useless", baseDamage: 0, damageModifier: 0.0 }
@@ -53,13 +56,13 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
         inventory = Inventory { equipment }
         stats = { strength: 1 }
         player = { inventory, stats }
-        enemy = createEnemy 1
+        enemy = createEnemy 2 -- armor soak
       player
         # calculateDamage (SimpleEnemyTarget enemy)
-        # shouldEqual (Damage 9)
+        # shouldEqual (Damage 7)
 
 createEnemy :: Int -> SimpleEnemy
 createEnemy armorSoak = { armor: armor, buffs: buffs }
   where
   armor = SimpleArmor { soak: armorSoak }
-  buffs = [ BasicBuff { soak: 0.5, damage:1.0 }, BasicBuff { soak: 0.5, damage:1.0 } ]
+  buffs = [ BasicBuff { soak: 0.5, damage:1.0 }, BasicBuff { soak: 0.5, damage:1.0 } ] -- buff: soaks are added to 1, and multiplied by armor soak

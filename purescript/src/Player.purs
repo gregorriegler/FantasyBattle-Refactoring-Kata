@@ -70,5 +70,8 @@ getSoak :: Target -> Int -> Player -> Int
 getSoak target totalDamage _ = case target of
   PlayerTarget _ -> totalDamage
   SimpleEnemyTarget other -> round $
-    (other.armor # Armor.getDamageSoak # toNumber)
-      * (other.buffs <#> Buff.soakModifier # Array.foldr (+) 1.0)
+    (other.armor # Armor.getDamageSoak # toNumber) -- 2
+      * (other.buffs <#> Buff.soakModifier # Array.foldr (+) 1.0) -- 2
+          -- B1  0.5
+          -- B2  0.5
+          --        foldr: 1.0 + 0.5 + 0.5 = 2
