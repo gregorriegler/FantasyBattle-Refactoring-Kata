@@ -8,7 +8,7 @@ import Damage (Damage(..))
 import Data.Array (foldr) as Array
 import Data.Int (round, toNumber)
 import Inventory (Inventory, getBaseDamage) as Inventory
-import Item (getBaseDamage, getDamageModifier) as Item
+import Item (getDamageModifier) as Item -- Goal: get rid of "Item" in "Player"
 import SimpleEnemy (SimpleEnemy)
 import Stats (Stats)
 import Data.Newtype (unwrap)
@@ -33,6 +33,7 @@ calculateDamage other player = Damage (max 0 (totalDamage - soak))
 getBaseDamage :: Player -> Int
 getBaseDamage player = player.inventory
     # Inventory.getBaseDamage
+
 
 getDamageModifier :: Player -> Number
 getDamageModifier player = strengthModifier
