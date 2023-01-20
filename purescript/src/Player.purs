@@ -12,6 +12,7 @@ import Item (getDamageModifier) as Item -- Goal: get rid of "Item" in "Player"
 import SimpleEnemy (SimpleEnemy)
 import Stats (Stats)
 import Data.Newtype (unwrap)
+import Equipment(getDamageModifier) as Equipment
 
 type Player =
   { inventory :: Inventory.Inventory
@@ -37,21 +38,12 @@ getBaseDamage player = player.inventory
 
 getDamageModifier :: Player -> Number
 getDamageModifier player = strengthModifier
-  + Item.getDamageModifier leftHand
-  + Item.getDamageModifier rightHand
-  + Item.getDamageModifier head
-  + Item.getDamageModifier feet
-  + Item.getDamageModifier chest
+  + Equipment.getDamageModifier equipment
+ 
   where
   equipment = player.inventory
     # unwrap
     # _.equipment
-    # unwrap
-  leftHand = equipment.leftHand
-  rightHand = equipment.rightHand
-  head = equipment.head
-  feet = equipment.feet
-  chest = equipment.chest
   strengthModifier = toNumber player.stats.strength * 0.1
 
 getSoak :: Target -> Int -> Player -> Int
