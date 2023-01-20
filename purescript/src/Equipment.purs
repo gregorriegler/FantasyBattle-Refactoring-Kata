@@ -1,6 +1,6 @@
 module Equipment where
 
-import Prelude
+import Prelude -- need this for the +
 import Item (Item, getBaseDamage) as Item
 import Data.Newtype (class Newtype, unwrap)
 
