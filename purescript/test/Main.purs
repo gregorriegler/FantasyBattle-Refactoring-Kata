@@ -53,13 +53,13 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
         inventory = Inventory { equipment }
         stats = { strength: 1 }
         player = { inventory, stats }
-        enemy = createEnemy
+        enemy = createEnemy 1
       player
         # calculateDamage (SimpleEnemyTarget enemy)
         # shouldEqual (Damage 9)
 
-createEnemy :: SimpleEnemy
-createEnemy = { armor: armor, buffs: buffs }
+createEnemy :: Int -> SimpleEnemy
+createEnemy armorSoak = { armor: armor, buffs: buffs }
   where
-  armor = SimpleArmor { soak: 1 }
+  armor = SimpleArmor { soak: armorSoak }
   buffs = [ BasicBuff { soak: 0.5, damage:1.0 }, BasicBuff { soak: 0.5, damage:1.0 } ]
