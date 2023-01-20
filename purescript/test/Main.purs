@@ -20,13 +20,13 @@ main = launchAff_ $ runSpec [ consoleReporter, teamcityReporter ] do
   describe "player" do
     it "does no damage to itself" do
       let
-        uselessItem = BasicItem { name: "useless", baseDamage: 0, damageModifier: 0.0 }
+        noItem = BasicItem { name: "useless", baseDamage: 0, damageModifier: 0.0 }
         equipment = Equipment
-          { leftHand: uselessItem
-          , rightHand: uselessItem
-          , head: uselessItem
-          , chest: uselessItem
-          , feet: uselessItem
+          { leftHand: noItem
+          , rightHand: noItem
+          , head: noItem
+          , chest: noItem
+          , feet: noItem
           }
         inventory = Inventory { equipment }
         stats = { strength: 1 }
