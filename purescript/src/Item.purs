@@ -15,8 +15,7 @@ getBaseDamage (BasicItem { baseDamage }) = baseDamage
 getDamageModifier :: Item -> Number
 getDamageModifier (BasicItem { damageModifier }) = damageModifier
 
-
-
+-- Experiment to see how to pass a function. Not generic
 getStuff :: (Item -> Int) -> Item -> Int
 getStuff fn item = 
   item 

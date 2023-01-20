@@ -43,9 +43,8 @@ getDamageModifier _equipment = 0.0
   feet = equipment.feet
   chest = equipment.chest
 
--- data Allowed = Int | Number
-
--- eachItem Allowed :: (f :: Item -> a) -> Equipment -> a
+-- TODO: make a generic function to allow both Item.getBaseDamage and Item.getDamageModifier
+-- eachItem :: (Item -> a) -> Equipment -> a
 -- getDamageModifier _equipment = f leftHand + f rightHand + f head + f feet + f chest
 --   where
 --   equipment = unwrap _equipment
